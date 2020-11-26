@@ -1,0 +1,51 @@
+﻿
+@model WebApplication3.Models.ViewModel.ServiceViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+<h2>@ViewBag.Title</h2>
+    <form>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(d => d.Name)
+                @Html.TextBoxFor(d => d.Name, new { id = "Name" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(d => d.Description)
+                @Html.TextBoxFor(d => d.Description, new {id= "Description" })
+            </div>
+            <button onclick="newRervice()" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+
+<script>
+    var url = "@Url.Content("~/Service/Save")";
+    function newRervice() {
+        console.log(document.getElementById('Name').value)
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                Name: document.getElementById('Name').value,
+                Description: document.getElementById('Description').value
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((resp) => {
+            if (resp.ok) {
+                return resp.text()
+            } else {
+                alert('Error al agregar')
+            }
+        }).then((data) => {
+                if (data != "1") {
+                    alert("Diferete de 1")
+                } else {
+                    document.location.href="@Url.Content("~/Service")"
+                }
+        })
+    }
+</script>
+

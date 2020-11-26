@@ -1,0 +1,40 @@
+﻿
+@using WebApplication3.Models.ViewModel
+@model List<ListServiceViewModel>
+@{
+    Layout = null;
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <th scope="row">1</th>
+                <td>@s.Name</td>
+                <td>@s.Description</td>
+                <td>@s.State</td>
+                <td>
+                    <button onclick="document.location.href = '@Url.Content("~/Service/Edit/?id="+s.Id)'" class="btn btn-warning">Editar</button>
+                    <button onclick="jsDelete(@s.Id)" class="btn btn-danger">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+
+
+
